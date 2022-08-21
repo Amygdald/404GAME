@@ -4,6 +4,7 @@ using System.Collections;
 
 public class PlayerA : PlayerBase
 {
+    public bool IsFrozen;
     private float iceJumpSpeed;
     public float waterJumpSpeed = 300;
     public AnimatorOverrideController iceAnim;
@@ -72,6 +73,7 @@ public class PlayerA : PlayerBase
     }
     private void Movement()
     {
+        if (IsFrozen) return;
         rb.velocity = new Vector2(hor * speed * Time.fixedDeltaTime, rb.velocity.y);
         animator.SetFloat("move", hor);
         if (hor != 0)
@@ -83,6 +85,7 @@ public class PlayerA : PlayerBase
     }
     private void Jump()
     {
+        if (IsFrozen) return;
         if (state == AState.air || boxCollider.IsTouchingLayers(mask)) return;
         if (rb.velocity.y == 0)
         {

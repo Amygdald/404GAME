@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerB : PlayerBase
 {
+    public bool IsFrozen;
     public float hp = 100;
     public LayerMask mask;
     void Start()
@@ -31,6 +32,7 @@ public class PlayerB : PlayerBase
 
     private void Movement()
     {
+        if (IsFrozen) return;
         rb.velocity = new Vector2(hor * speed * Time.fixedDeltaTime, rb.velocity.y);
         animator.SetFloat("move", hor);
         if (hor != 0)
@@ -40,6 +42,7 @@ public class PlayerB : PlayerBase
     }
     private void Jump()
     {
+        if (IsFrozen) return;
         if (rb.velocity.y == 0 || boxCollider.IsTouchingLayers(mask))
         {
             if (jump)
