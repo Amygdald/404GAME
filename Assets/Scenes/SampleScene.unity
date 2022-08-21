@@ -8755,6 +8755,7 @@ MonoBehaviour:
   speed: 300
   jumpSpeed: 800
   temperature: 0
+  IsFrozen: 0
   hp: 100
   mask:
     serializedVersion: 2
@@ -8924,7 +8925,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7505362, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10975,6 +10976,7 @@ MonoBehaviour:
   speed: 300
   jumpSpeed: 800
   temperature: 0
+  IsFrozen: 0
   waterJumpSpeed: 400
   iceAnim: {fileID: 22100000, guid: e4531c275574d6f4b9c6e9649f763b42, type: 2}
   waterAnim: {fileID: 22100000, guid: ac5944d8952b50b4c8bb4ad2f6c1605b, type: 2}

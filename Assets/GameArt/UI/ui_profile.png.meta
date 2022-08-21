@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3d556d417170d4d46b1a9d226ff8affe
+guid: c11d41f18c8a7364fadac74b37a0972f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,106 +104,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hp_0
+      name: ui_profile_0
       rect:
         serializedVersion: 2
-        x: 143
-        y: 84
-        width: 138
-        height: 139
+        x: 84
+        y: 105
+        width: 732
+        height: 775
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 14, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d554d58eb93a10b46b102392fc6900d1
-      internalID: -289006637
+      spriteID: 79c8b557dc7483e4394c97e740fb9726
+      internalID: -1178079075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hp_1
+      name: ui_profile_1
       rect:
         serializedVersion: 2
-        x: 148
-        y: 79
-        width: 739
-        height: 145
+        x: 1216
+        y: 105
+        width: 732
+        height: 775
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 14, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f24fd065e79f77c41929883b68b606b2
-      internalID: -2044285362
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hp_2
-      rect:
-        serializedVersion: 2
-        x: 1031
-        y: 84
-        width: 138
-        height: 139
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9801b8e0897a82549a65fae665d354f0
-      internalID: -1329771274
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hp_3
-      rect:
-        serializedVersion: 2
-        x: 1032
-        y: 85
-        width: 745
-        height: 139
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa6ecc67568af0a42b22c5c934eb2e43
-      internalID: -1367187313
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hp_4
-      rect:
-        serializedVersion: 2
-        x: 1978
-        y: 119
-        width: 519
-        height: 58
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 801b6273cec4a53409bc10e5cd0f3000
-      internalID: 2018702600
+      spriteID: b6140a8f071728d4baadab6a593c422b
+      internalID: -1624985011
       vertices: []
       indices: 
       edges: []
@@ -219,11 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      hp_2: -1329771274
-      hp_3: -1367187313
-      hp_0: -289006637
-      hp_1: -2044285362
-      hp_4: 2018702600
+      ui_profile_0: -1178079075
+      ui_profile_1: -1624985011
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
