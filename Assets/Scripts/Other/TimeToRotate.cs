@@ -31,12 +31,12 @@ public class TimeToRotate : MonoBehaviour
             Timer = 0;
             Quaternion tar = Quaternion.Euler(0, 0, rotareAngle) * transform.rotation;
             StartCoroutine("Rotate", tar);
-            freeze();
         }
     }
 
     IEnumerator Rotate(Quaternion tarRotation)
     {
+        freeze();
         Transform Ta = this.PlayerA.transform.GetComponent<Transform>();
         Transform Tb = this.PlayerB.transform.GetComponent<Transform>();
         Quaternion tarA = Quaternion.Euler(0, 0, -rotareAngle) * Ta.rotation;
