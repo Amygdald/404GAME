@@ -6,9 +6,13 @@ public class PlayerB : PlayerBase
 {
     public bool IsFrozen;
     public float hp = 100;
-    public LayerMask mask;
+    public LayerMask playerMask;
+    public LayerMask groundMask;
+    [HideInInspector]
+    protected CircleCollider2D circleCollider;
     void Start()
     {
+        circleCollider = GetComponent<CircleCollider2D>();
         GameObject sliObj = GameObject.Find("Slider_Heat_Player2");
         if (sliObj)
         {
@@ -19,13 +23,15 @@ public class PlayerB : PlayerBase
     }
     void Update()
     {
-        hor = Input.GetAxisRaw("HorizontalB");
-        jump = Input.GetKeyDown(KeyCode.UpArrow);
+        if (!playerControl) return;
+        TemperatureChange();
+        hor = Input.GetAxisRaw("Horizontal");
+        jump = Input.GetKeyDown(KeyCode.W);
         Jump();
     }
     void FixedUpdate()
     {
-
+        if (!playerControl) return;
         Movement();
 
     }
@@ -42,8 +48,12 @@ public class PlayerB : PlayerBase
     }
     private void Jump()
     {
+<<<<<<< Updated upstream
         if (IsFrozen) return;
         if (rb.velocity.y == 0 || boxCollider.IsTouchingLayers(mask))
+=======
+        if (circleCollider.IsTouchingLayers(groundMask) || boxCollider.IsTouchingLayers(playerMask))
+>>>>>>> Stashed changes
         {
             if (jump)
             {
@@ -54,4 +64,27 @@ public class PlayerB : PlayerBase
                 animator.SetBool("jump", false);
         }
     }
+    private void TemperatureChange()
+    {
+        MainPanelMgr.instance.bHeatSlider.value = temperature;
+        MainPanelMgr.instance.bHpSlider.value = hp;
+        temperature = Mathf.MoveTowards(temperature, normalTemperature, 1f * Time.deltaTime);
+        if (temperature < 34 || temperature > 37)
+        {
+            hp -= 3 * Time.deltaTime;
+            hp = hp < 0 ? 0 : hp;
+        }
+        else
+        {
+            hp += 3 * Time.deltaTime;
+            hp = hp > 100 ? 100 : hp;
+        }
+
+       
+    }
+    public void SetTemperature(float normal)
+    {
+        normalTemperature = normal;
+    }
+
 }

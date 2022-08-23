@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+<<<<<<< Updated upstream
 public class MainPanelMgr : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -58,4 +59,23 @@ public class MainPanelMgr : MonoBehaviour
         Animator AnimB = this.Obj_HeatB_Bar.GetComponent<Animator>();
         AnimB.Play(HeatB_Is_Hot ? "hot" : "heat");
     }
+=======
+public class MainPanelMgr : MonoSingleton<MainPanelMgr>
+{
+    public Transform iceTrans;
+    public GameObject iceCream;
+    public Slider aHeatSlider;
+    public Slider bHeatSlider;
+    public TextMeshProUGUI aState;
+    public Slider bHpSlider;
+
+    public Animator aHeatAnimator;
+    public Animator bHeatAnimator;
+    
+
+  
+
+
+
+>>>>>>> Stashed changes
 }

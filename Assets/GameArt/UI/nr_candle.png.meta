@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: e67c30d3544c73f47a4c1d84634df924
+=======
+guid: b0859f192d73f7545b80b079743a2f6e
+>>>>>>> Stashed changes
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -118,8 +122,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< Updated upstream
       spriteID: e7e405c09199dde478d1478fcc81ce9f
       internalID: -1036369880
+=======
+      spriteID: c8f12b4e5cc98cc4ba7c6f6c7801f43c
+      internalID: -1036455215
+>>>>>>> Stashed changes
       vertices: []
       indices: 
       edges: []
@@ -139,8 +148,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< Updated upstream
       spriteID: 6fe241bc20dfedd49bc1dd54bf812bf8
       internalID: 662824202
+=======
+      spriteID: 2ce7cd172fcfb1548a73aff7fe091608
+      internalID: -603557937
+>>>>>>> Stashed changes
       vertices: []
       indices: 
       edges: []
@@ -160,8 +174,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< Updated upstream
       spriteID: 3c1222b4942a43443a3ad9f831a6909c
       internalID: -1254222622
+=======
+      spriteID: df5df59013038524f8a9fba8dd3322c5
+      internalID: -135101626
+>>>>>>> Stashed changes
       vertices: []
       indices: 
       edges: []
@@ -177,9 +196,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+<<<<<<< Updated upstream
       nr_candle_1: 662824202
       nr_candle_2: -1254222622
       nr_candle_0: -1036369880
+=======
+      nr_candle_1: -603557937
+      nr_candle_2: -135101626
+      nr_candle_0: -1036455215
+>>>>>>> Stashed changes
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

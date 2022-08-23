@@ -4,31 +4,59 @@ using System.Collections;
 
 public class PlayerA : PlayerBase
 {
+<<<<<<< Updated upstream
     public bool IsFrozen;
     private float iceJumpSpeed;
+=======
+    public float iceJumpSpeed;
+>>>>>>> Stashed changes
     public float waterJumpSpeed = 300;
     public AnimatorOverrideController iceAnim;
     public AnimatorOverrideController waterAnim;
     public AnimatorOverrideController airAnim;
-    public LayerMask mask;
-    private AState state = AState.ice;
+    public LayerMask playerMask;
+    private AState state;
+    [HideInInspector]
+
     void Start()
     {
-        iceJumpSpeed = jumpSpeed;
-
-        GameObject sliObj = GameObject.Find("Slider_Heat_Player1");
-        if (sliObj)
+        if (temperature >= 100)
         {
-            slider_Heat = sliObj.GetComponent<Slider>();
+            state = AState.air;
+            animator.runtimeAnimatorController = airAnim;
+            MainPanelMgr.instance.aHeatAnimator.Play("hot");
+        }
+        else if (temperature >= 0)
+        {
+            state = AState.water;
+            animator.runtimeAnimatorController = waterAnim;
+            jumpSpeed = waterJumpSpeed;
+            MainPanelMgr.instance.aHeatAnimator.Play("heat");
         }
         else
-            print("zhaobudao ");
+        {
+            state = AState.ice;
+            animator.runtimeAnimatorController = iceAnim;
+            jumpSpeed = iceJumpSpeed;
+            MainPanelMgr.instance.aHeatAnimator.Play("heat");
+        }
+
+
+
+        // GameObject sliObj = GameObject.Find("Slider_Heat_Player1");
+        // if (sliObj)
+        // {
+        //     slider_Heat = sliObj.GetComponent<Slider>(); print("找到了");
+        // }
+        // else
+        //     print("zhaobudao ");
     }
     void Update()
     {
         if (!playerControl) return;
-        hor = Input.GetAxisRaw("Horizontal");
-        jump = Input.GetKeyDown(KeyCode.Space);
+        TemperatureChange();
+        hor = Input.GetAxisRaw("HorizontalB");
+        jump = Input.GetKeyDown(KeyCode.UpArrow);
         Jump();
         StateSwitch();
 
@@ -36,7 +64,7 @@ public class PlayerA : PlayerBase
     }
     void FixedUpdate()
     {
-
+        if (!playerControl) return;
         Movement();
 
     }
@@ -57,18 +85,20 @@ public class PlayerA : PlayerBase
             {
                 StartCoroutine(WaterToIce());
             }
-            else if (temperature > 10)
+            else if (temperature >= 100)
             {
                 StartCoroutine(WaterToAir());
+                MainPanelMgr.instance.aHeatAnimator.Play("hot");
             }
 
         }
         else if (state == AState.air)
         {
-            // if (temperature <= 10)
-            // {
-            //     StartCoroutine(WaterToIce());
-            // }
+            if (temperature < 100)
+            {
+                StartCoroutine(AirToWater());
+                MainPanelMgr.instance.aHeatAnimator.Play("heat");
+            }
         }
     }
     private void Movement()
@@ -80,14 +110,18 @@ public class PlayerA : PlayerBase
         {
             transform.localScale = new Vector2(-hor, 1);
         }
-
-
     }
     private void Jump()
     {
+<<<<<<< Updated upstream
         if (IsFrozen) return;
         if (state == AState.air || boxCollider.IsTouchingLayers(mask)) return;
         if (rb.velocity.y == 0)
+=======
+        //if (state == AState.air || boxCollider.IsTouchingLayers(playerMask)) return;
+        if (state == AState.air) return;
+        if (Mathf.Abs(rb.velocity.y) < 0.1f)
+>>>>>>> Stashed changes
         {
             if (jump)
             {
@@ -97,11 +131,33 @@ public class PlayerA : PlayerBase
             else
                 animator.SetBool("jump", false);
         }
-
-
     }
+    public void SetTemperature(float temperatureAddRate, float temperatureMax, float temperatureMin)
+    {
+        this.temperatureAddRate = temperatureAddRate;
+        this.temperatureMax = temperatureMax;
+        this.temperatureMin = temperatureMin;
+    }
+    private void TemperatureChange()
+    {
+        if (temperatureAddRate == 0)
+        {
+            temperature = Mathf.MoveTowards(temperature, normalTemperature, 2f * Time.deltaTime);
+
+        }
+        else
+        {
+            temperature += temperatureAddRate * Time.deltaTime;
+            temperature = temperature > temperatureMax ? temperature : temperatureMax;
+            temperature = temperature < temperatureMin ? temperature : temperatureMin;
+        }
+        MainPanelMgr.instance.aHeatSlider.value = temperature;
+        MainPanelMgr.instance.aState.text = "当前状态:" + state.ToString();
+    }
+
     private IEnumerator IceToWater()
     {
+        rb.velocity = new Vector2(0, 0);
         //失去控制
         playerControl = false;
         //切换动画
@@ -113,37 +169,44 @@ public class PlayerA : PlayerBase
         //改变动画控制器
         animator.runtimeAnimatorController = waterAnim;
         animator.Play("Idle");
+        yield return new WaitForSeconds(0.2f);
         //改变碰撞器
         boxCollider.size = spriteRenderer.sprite.bounds.size;
         boxCollider.offset = spriteRenderer.sprite.bounds.center;
-
+        //修改跳跃速度
+        jumpSpeed = waterJumpSpeed;
         //恢复控制
         playerControl = true;
     }
     private IEnumerator WaterToIce()
     {
-        //失去控制
-        playerControl = false;
+        // //失去控制
+        // playerControl = false;
         //切换动画
         animator.SetTrigger("watertoice");
         //修改状态
         state = AState.ice;
+        yield return new WaitForSeconds(0.35f);
+        // rb.velocity = new Vector2(0, 0);
         //等待动画结束
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.15f);
         //改变动画控制器
         animator.runtimeAnimatorController = iceAnim;
         animator.Play("Idle");
+        yield return new WaitForSeconds(0.2f);
         //改变碰撞器
         boxCollider.size = spriteRenderer.sprite.bounds.size;
         boxCollider.offset = spriteRenderer.sprite.bounds.center;
-
-        //恢复控制
-        playerControl = true;
+        //修改跳跃速度
+        jumpSpeed = iceJumpSpeed;
+        // //恢复控制
+        // playerControl = true;
     }
     private IEnumerator WaterToAir()
     {
+        rb.velocity = new Vector2(0, 0);
         //失去控制
-        playerControl = false;
+        // playerControl = false;
         //切换动画
         animator.SetTrigger("watertoair");
         //修改状态
@@ -160,7 +223,57 @@ public class PlayerA : PlayerBase
         //重力
         rb.gravityScale = -1;
         //恢复控制
+        // playerControl = true;
+    }
+    private IEnumerator AirToWater()
+    {
+        rb.velocity = new Vector2(0, 0);
+        //失去控制
+        playerControl = false;
+        //切换动画
+        animator.SetTrigger("airtowater");
+        //修改状态
+        state = AState.water;
+        //等待动画结束
+        yield return new WaitForSeconds(2f);
+        //位置
+        transform.position = transform.position + Vector3.down * 1.4f;
+        //改变动画控制器
+        animator.runtimeAnimatorController = waterAnim;
+        animator.Play("Idle");
+        yield return new WaitForSeconds(0.2f);
+        //改变碰撞器
+        boxCollider.size = spriteRenderer.sprite.bounds.size;
+        boxCollider.offset = spriteRenderer.sprite.bounds.center;
+        //重力
+        rb.gravityScale = 3;
+        //恢复控制
         playerControl = true;
+    }
+    public void PassTube(Vector3 pos)
+    {
+        if (state == AState.water || state == AState.air)
+        {
+            StartCoroutine("PassTubeReal", pos);
+        }
+    }
+
+    private IEnumerator PassTubeReal(Vector3 pos)
+    {
+        Transform gridTF = FindObjectOfType<Grid>().transform;
+        transform.parent = gridTF;
+        playerControl = false;
+        rb.velocity = new Vector2(0, 0);
+        var render = GetComponent<SpriteRenderer>();
+        render.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+
+        transform.localPosition = pos;
+
+        transform.parent = null;
+        playerControl = true;
+
+        render.enabled = true;
     }
 
 }
