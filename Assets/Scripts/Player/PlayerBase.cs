@@ -3,15 +3,20 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
-    protected bool playerControl=true;
+    protected bool playerControl = true;
     public float speed;
     public float jumpSpeed;
     public float temperature = 0;
+    public float normalTemperature = 0;
+    public float temperatureMax = 0;
+    public float temperatureMin = 0;
+    public float temperatureAddRate;
     protected Slider slider_Heat;
 
     protected Rigidbody2D rb;
     protected Animator animator;
     protected BoxCollider2D boxCollider;
+
     protected SpriteRenderer spriteRenderer;
     protected float hor;
     protected bool jump;
@@ -23,6 +28,20 @@ public class PlayerBase : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
+    public void SetPlayerControl(bool control)
+    {
+        playerControl = control;
+    }
+    public void SetTemperature(float change)
+    {
+        temperature += change;
+    }
+    protected virtual void UpdateTemperature()
+    {
+        temperature = Mathf.MoveTowards(temperature, normalTemperature, temperatureAddRate * Time.deltaTime);
 
+        temperature = Mathf.Clamp(temperature, temperatureMin, temperatureMax);
+
+    }
 
 }

@@ -5,26 +5,25 @@ using UnityEngine;
 public class PlayerB : PlayerBase
 {
     public float hp = 100;
-    public LayerMask mask;
+    public LayerMask playerMask;
+    public LayerMask groundMask;
+    [HideInInspector]
+    protected CircleCollider2D circleCollider;
     void Start()
     {
-        GameObject sliObj = GameObject.Find("Slider_Heat_Player2");
-        if (sliObj)
-        {
-            slider_Heat = sliObj.GetComponent<Slider>();
-        }
-        else
-            print("zhaobudao ");
+        circleCollider = GetComponent<CircleCollider2D>();
     }
     void Update()
     {
-        hor = Input.GetAxisRaw("HorizontalB");
-        jump = Input.GetKeyDown(KeyCode.UpArrow);
+        if (!playerControl) return;
+        UpdateTemperature();
+        hor = Input.GetAxisRaw("Horizontal");
+        jump = Input.GetKeyDown(KeyCode.W);
         Jump();
     }
     void FixedUpdate()
     {
-
+        if (!playerControl) return;
         Movement();
 
     }
@@ -40,7 +39,7 @@ public class PlayerB : PlayerBase
     }
     private void Jump()
     {
-        if (rb.velocity.y == 0 || boxCollider.IsTouchingLayers(mask))
+        if (circleCollider.IsTouchingLayers(groundMask) || boxCollider.IsTouchingLayers(playerMask))
         {
             if (jump)
             {
@@ -51,4 +50,24 @@ public class PlayerB : PlayerBase
                 animator.SetBool("jump", false);
         }
     }
+    protected override void UpdateTemperature()
+    {
+        base.UpdateTemperature();
+        MainPanelMgr.instance.bHeatSlider.value = temperature;
+        MainPanelMgr.instance.bHpSlider.value = hp;
+    }
+    public void UpdateHp()
+    {
+        if (temperature < 34 || temperature > 37)
+        {
+            hp = Mathf.MoveTowards(hp, 0, 10 * Time.deltaTime);
+        }
+
+        else
+        {
+            hp = Mathf.MoveTowards(hp, 100, 3 * Time.deltaTime);
+        }
+        hp = Mathf.Clamp(hp, 0, 100);
+    }
+
 }

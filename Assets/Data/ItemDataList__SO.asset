@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ItemDataList__SO
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataList__SO
   ItemDataList:
-  - itemID: 1001
-    itemName: "\u96EA\u7CD5"
+  - itemID: 0
+    itemName: 
     sprite: {fileID: 0}

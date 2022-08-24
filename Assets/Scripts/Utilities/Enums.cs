@@ -1,7 +1,7 @@
 public enum AState
 {
-    ice,
-    water,
-    air
+    冰块,
+    水,
+    空气
 
 }
